@@ -7,6 +7,7 @@ namespace FinalTest_Hard
         public Form1()
         {
             InitializeComponent();
+            Custom();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -156,7 +157,14 @@ namespace FinalTest_Hard
                 return;
 
             string id = (string)dataGridView1.Rows[e.RowIndex].Cells["ID"].Value;
-            MessageBox.Show(id);
+            var newEn = enrollments.Where(en => en.ID == id).ToList();
+
+            label1.Text = enrollments.Where(en => en.ID == id).Select(en => en.Name).First();
+            dataGridView2.DataSource = null;
+            dataGridView2.DataSource = newEn;
+
+            if (!panel1.Visible)
+                panel1.Visible = true;
         }
     }
 }

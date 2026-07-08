@@ -31,7 +31,11 @@
             button1 = new Button();
             dataGridView1 = new DataGridView();
             panel1 = new Panel();
+            dataGridView2 = new DataGridView();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
             // 
             // button1
@@ -55,10 +59,29 @@
             // 
             // panel1
             // 
-            panel1.Location = new Point(86, 286);
+            panel1.Controls.Add(label1);
+            panel1.Controls.Add(dataGridView2);
+            panel1.Location = new Point(41, 257);
             panel1.Name = "panel1";
-            panel1.Size = new Size(318, 124);
+            panel1.Size = new Size(463, 145);
             panel1.TabIndex = 2;
+            // 
+            // dataGridView2
+            // 
+            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView2.Location = new Point(0, 38);
+            dataGridView2.Name = "dataGridView2";
+            dataGridView2.Size = new Size(463, 104);
+            dataGridView2.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(29, 20);
+            label1.Name = "label1";
+            label1.Size = new Size(38, 15);
+            label1.TabIndex = 1;
+            label1.Text = "label1";
             // 
             // Form1
             // 
@@ -71,7 +94,15 @@
             Name = "Form1";
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            panel1.ResumeLayout(false);
+            panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
+        }
+
+        private void Custom()
+        {
+            panel1.Hide();
         }
 
         #endregion
@@ -79,5 +110,7 @@
         private Button button1;
         private DataGridView dataGridView1;
         private Panel panel1;
+        private Label label1;
+        private DataGridView dataGridView2;
     }
 }
