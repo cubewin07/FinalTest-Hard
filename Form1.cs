@@ -69,7 +69,9 @@ namespace FinalTest_Hard
 
             foreach(var stu in unique)
             {
-                students.Add(stu.Value);
+                var student = stu.Value;
+                student.Grade = CalculateMedianGrade(grades[stu.Key]);
+                students.Add(student);
             }
 
             return students;
@@ -91,6 +93,41 @@ namespace FinalTest_Hard
                 >= 40 => "D",
                 _ => "E"
             };
+        }
+
+        public static int ConvertToValue(string grade)
+        {
+            return _ = grade switch
+            {
+                "A+" => 95,
+                "A" => 90,
+                "A-" => 85,
+                "B+" => 80,
+                "B" => 75,
+                "B-" => 70,
+                "C+" => 65,
+                "C" => 60,
+                "C-" => 55,
+                "D" => 50,
+                _ => 0
+            };
+        }
+
+        public static string CalculateMedianGrade(List<string> grades)
+        {
+            int total = 0;
+
+            foreach(var grade in grades)
+            {
+                total += ConvertToValue(grade);
+            }
+
+            float median = total / grades.Count();
+
+            int parsedVal = (int)Math.Round(median);
+
+            return ConvertToGrade(parsedVal);
+            
         }
     } 
 
