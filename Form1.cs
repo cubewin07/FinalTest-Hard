@@ -1,6 +1,6 @@
 namespace FinalTest_Hard
 {
-   
+
     public partial class Form1 : Form
     {
         private List<Enrollment> enrollments = [];
@@ -12,7 +12,7 @@ namespace FinalTest_Hard
         private void button1_Click(object sender, EventArgs e)
         {
             OpenFileDialog ofd = new();
-            if(ofd.ShowDialog() == DialogResult.OK)
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 string[] lines = File.ReadAllLines(ofd.FileName);
                 Render(lines);
@@ -47,19 +47,20 @@ namespace FinalTest_Hard
 
             enrolls.ForEach(e =>
             {
-                if (unique.TryGetValue(e.ID, out Student stu )&& grades.TryGetValue(e.ID, out List<string> grds))
+                if (unique.TryGetValue(e.ID, out Student stu) && grades.TryGetValue(e.ID, out List<string> grds))
                 {
                     stu.TotalCredits += e.Credit;
                     grds.Add(e.Grade);
-                    
-                } else
+
+                }
+                else
                 {
                     unique[e.ID] = new Student
                     {
                         ID = e.ID,
                         Name = e.Name,
                         TotalCredits = e.Credit,
-                        Grade = ""
+                        MedGrade = ""
                     };
                     grades[e.ID] = [e.Grade];
                 }
@@ -67,10 +68,10 @@ namespace FinalTest_Hard
 
             });
 
-            foreach(var stu in unique)
+            foreach (var stu in unique)
             {
                 var student = stu.Value;
-                student.Grade = CalculateMedianGrade(grades[stu.Key]);
+                student.MedGrade = CalculateMedianGrade(grades[stu.Key]);
                 students.Add(student);
             }
 
@@ -117,7 +118,7 @@ namespace FinalTest_Hard
         {
             int total = 0;
 
-            foreach(var grade in grades)
+            foreach (var grade in grades)
             {
                 total += ConvertToValue(grade);
             }
@@ -127,26 +128,35 @@ namespace FinalTest_Hard
             int parsedVal = (int)Math.Round(median);
 
             return ConvertToGrade(parsedVal);
-            
+
         }
-    } 
 
-    public class Enrollment()
-    {
-        public required string ID { get; set; }
-        public required string Name { get; set; }
-        public required string CourseCode { get; set; }
-        public required string CodeName { get; set; }
-        public required string Grade { get; set; }
-        public int Credit { get; set; }
+
+        public class Enrollment()
+        {
+            public required string ID { get; set; }
+            public required string Name { get; set; }
+            public required string CourseCode { get; set; }
+            public required string CodeName { get; set; }
+            public required string Grade { get; set; }
+            public int Credit { get; set; }
+        }
+
+        public class Student()
+        {
+            public required string ID { set; get; }
+            public required string Name { get; set; }
+            public int TotalCredits { get; set; }
+            public required string MedGrade { get; set; }
+        }
+
+        private void CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex == -1)
+                return;
+
+            string id = (string)dataGridView1.Rows[e.RowIndex].Cells["ID"].Value;
+            MessageBox.Show(id);
+        }
     }
-
-    public class Student()
-    {
-        public required string ID {  set; get; }
-        public required string Name { get; set; }
-        public int TotalCredits { get; set; }
-        public required string Grade { get; set; }
-    }
-
 }
